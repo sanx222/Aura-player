@@ -1,6 +1,7 @@
 import { useEffect, useMemo, lazy, Suspense } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Sidebar } from '@/components/Sidebar/Sidebar'
+import { MobileNavBar } from '@/components/Navigation/MobileNavBar'
 import { PlayerBar } from '@/components/Player/PlayerBar'
 import { Library } from '@/pages/Library'
 import { TitleBar } from '@/components/TitleBar'
@@ -181,7 +182,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <TitleBar />
+      {typeof window !== "undefined" && window.electronAPI ? <TitleBar /> : <div style={{ height: "env(safe-area-inset-top, 0px)" }} />}
 
       <div
         className="flex flex-1 overflow-hidden"
@@ -189,7 +190,7 @@ export default function App() {
         // floating player pill (the page reserves its own clearance below) —
         // a hard 90px shell padding here used to shear the backdrop off above
         // the bar and leave a bare strip of root background around the pill.
-        style={{ paddingBottom: isNowPlaying ? 0 : 'var(--spacing-player)' }}
+        style={{ paddingBottom: isNowPlaying ? 0 : 'calc(var(--spacing-player) + 56px)' }}
       >
         {/* Sidebar hidden in Now Playing view */}
         <AnimatePresence>
@@ -200,7 +201,7 @@ export default function App() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -20, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="shrink-0 flex"
+              className="hidden md:flex shrink-0"
             >
               <Sidebar />
             </motion.div>
@@ -343,6 +344,7 @@ export default function App() {
           longer replaces anything in here. */}
       <PlayerBar />
       <PlayerBarPanels />
+      {!isNowPlaying && <MobileNavBar />}
 
       {/* Global overlays — feedback toasts, the keyboard shortcuts guide,
           and the Ctrl+K command palette. Rendered last so they layer above

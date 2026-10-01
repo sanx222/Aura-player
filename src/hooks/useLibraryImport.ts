@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { pickAudioFilesMobile } from '@/services/mobileImport'
 import {
   importFolderViaDialog, importFilesViaDialog, importDroppedPaths,
   type ImportProgress,
@@ -15,13 +16,19 @@ export function useLibraryImport() {
   const onProgress = (p: ImportProgress) => setProgress(p)
 
   const importFolder = async () => {
-    if (!window.electronAPI) return
+    if (!window.electronAPI) {
+      await pickAudioFilesMobile()
+      return
+    }
     setImporting(true)
     try { await importFolderViaDialog(onProgress) } finally { setImporting(false) }
   }
 
   const importFiles = async () => {
-    if (!window.electronAPI) return
+    if (!window.electronAPI) {
+      await pickAudioFilesMobile()
+      return
+    }
     setImporting(true)
     try { await importFilesViaDialog(onProgress) } finally { setImporting(false) }
   }

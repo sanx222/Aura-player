@@ -16,7 +16,8 @@
     "build": "tsc -b && vite build",
     "build:electron": "npm run build && electron-builder",
     "build:linux": "npm run build && electron-builder --linux",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:android": "npm run build && cap sync android"
   },
   "build": {
     "appId": "com.consolex.aura",
@@ -112,7 +113,9 @@
     ]
   },
   "dependencies": {
-    "music-metadata": "^11.13.0"
+    "music-metadata": "^11.13.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/android": "^7.0.0"
   },
   "devDependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.18",
@@ -134,7 +137,8 @@
     "typescript": "~6.0.2",
     "vite": "^8.1.0",
     "wait-on": "^9.0.10",
-    "zustand": "^5.0.14"
+    "zustand": "^5.0.14",
+    "@capacitor/cli": "^7.0.0"
   },
   "homepage": "https://github.com/ConsoleX-ir/Aura-player"
 }

@@ -129,7 +129,7 @@ export function PlayerBar() {
       initial={{ y: 110, opacity: 0, x: '-50%' }}
       animate={{ y: 0, opacity: 1, x: '-50%' }}
       transition={{ type: 'spring', stiffness: 260, damping: 28 }}
-      className="fixed bottom-3 left-1/2 z-50"
+      className="fixed bottom-[calc(62px+env(safe-area-inset-bottom,0px))] md:bottom-3 left-1/2 z-50"
       style={{ width: 'min(1280px, calc(100vw - 32px))', height: 76 }}
       data-player-bar
     >
